@@ -23,6 +23,7 @@ defmodule SortixWeb.ConnCase do
       @endpoint SortixWeb.Endpoint
 
       use SortixWeb, :verified_routes
+      use Oban.Testing, repo: Sortix.Infrastructure.Repo
 
       # Import conveniences for testing with connections
       import Plug.Conn

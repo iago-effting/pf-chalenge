@@ -11,6 +11,7 @@ defmodule Sortix.Infrastructure.Application do
       SortixWeb.Telemetry,
       Sortix.Infrastructure.Repo,
       {DNSCluster, query: Application.get_env(:sortix, :dns_cluster_query) || :ignore},
+      {Oban, Application.fetch_env!(:sortix, Oban)},
       {Phoenix.PubSub, name: Sortix.PubSub},
       {Finch, name: Sortix.Finch},
       SortixWeb.Endpoint

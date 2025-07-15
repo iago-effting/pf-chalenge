@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Sortix.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Sortix.Infrastructure.Repo, :manual)

@@ -1,11 +1,12 @@
 import Config
+config :sortix, Oban, testing: :manual
 
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :sortix, Sortix.Repo,
+config :sortix, Sortix.Infrastructure.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
@@ -21,7 +22,7 @@ config :sortix, SortixWeb.Endpoint,
   server: false
 
 # In test we don't send emails
-config :sortix, Sortix.Mailer, adapter: Swoosh.Adapters.Test
+config :sortix, Sortix.Infrastructure.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false

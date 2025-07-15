@@ -7,6 +7,10 @@
 # General application configuration
 import Config
 
+config :sortix, Oban,
+  repo: Sortix.Infrastructure.Repo,
+  queues: [draws: 20]
+
 config :sortix,
   ecto_repos: [Sortix.Infrastructure.Repo],
   generators: [timestamp_type: :utc_datetime]
