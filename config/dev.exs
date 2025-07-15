@@ -1,7 +1,7 @@
 import Config
 
 # Configure your database
-config :sortix, Sortix.Repo,
+config :sortix, Sortix.Infrastructure.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",

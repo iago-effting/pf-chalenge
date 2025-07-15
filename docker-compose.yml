@@ -1,0 +1,8 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_sortix
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres

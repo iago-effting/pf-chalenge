@@ -1,4 +1,4 @@
-defmodule Sortix.Application do
+defmodule Sortix.Infrastructure.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,14 +9,10 @@ defmodule Sortix.Application do
   def start(_type, _args) do
     children = [
       SortixWeb.Telemetry,
-      Sortix.Repo,
+      Sortix.Infrastructure.Repo,
       {DNSCluster, query: Application.get_env(:sortix, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Sortix.PubSub},
-      # Start the Finch HTTP client for sending emails
       {Finch, name: Sortix.Finch},
-      # Start a worker by calling: Sortix.Worker.start_link(arg)
-      # {Sortix.Worker, arg},
-      # Start to serve requests, typically the last entry
       SortixWeb.Endpoint
     ]
 

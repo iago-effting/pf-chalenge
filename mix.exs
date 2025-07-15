@@ -18,7 +18,7 @@ defmodule Sortix.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Sortix.Application, []},
+      mod: {Sortix.Infrastructure.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

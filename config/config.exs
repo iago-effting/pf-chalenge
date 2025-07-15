@@ -8,7 +8,7 @@
 import Config
 
 config :sortix,
-  ecto_repos: [Sortix.Repo],
+  ecto_repos: [Sortix.Infrastructure.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
@@ -29,7 +29,7 @@ config :sortix, SortixWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :sortix, Sortix.Mailer, adapter: Swoosh.Adapters.Local
+config :sortix, Sortix.Infrastructure.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configures Elixir's Logger
 config :logger, :console,
