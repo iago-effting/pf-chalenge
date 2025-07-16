@@ -1,4 +1,5 @@
 defmodule Sortix.UseCases.Raffles do
+  alias Sortix.Raffles.Raffle
   alias Ecto.Multi
 
   alias Sortix.Domain.Raffles.Participation
@@ -43,6 +44,19 @@ defmodule Sortix.UseCases.Raffles do
     |> case do
       {:ok, winner_id} -> {:ok, winner_id}
       {:error, reason} -> {:error, reason}
+    end
+  end
+
+  def get_result(raffle_id) do
+    case Repo.get(Raffle, raffle_id) do
+      nil ->
+        {:error, :not_found}
+
+      %Raffle{status: :drawn} = raffle ->
+        {:ok, Repo.preload(raffle, :winner_user)}
+
+      %Raffle{status: status} ->
+        {:error, {:raffle_not_drawn, status}}
     end
   end
 

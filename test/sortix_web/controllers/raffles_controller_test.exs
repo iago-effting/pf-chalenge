@@ -1,6 +1,9 @@
 defmodule SortixWeb.RafflesControllerTest do
   use SortixWeb.ConnCase, async: true
 
+  alias Sortix.Infrastructure.Repo
+  alias Sortix.Raffles.Raffle
+
   describe "POST /raffles" do
     test "creates a raffle with valid parameters", %{conn: conn} do
       params = %{"name" => "Test Raffle", "draw_date" => "2023-10-01T12:00:00Z"}
@@ -27,6 +30,34 @@ defmodule SortixWeb.RafflesControllerTest do
 
       assert response["error"] == "Invalid input"
       refute_enqueued(worker: Sortix.Infrastructure.Jobs.Raffles.DrawRaffleJob)
+    end
+  end
+
+  describe "GET /raffles/:id" do
+    test "returns 200 with raffle and winner data when drawn", %{conn: conn} do
+      {:ok, raffle} = raffle_fixure()
+      {:ok, user} = user_fixure()
+
+      raffle =
+        raffle
+        |> Raffle.put_winner(user.id)
+        |> Repo.update!()
+        |> Repo.preload(:winner_user)
+
+      conn =
+        get(conn, ~p"/api/raffles/#{raffle.id}")
+
+      assert json_response(conn, 200) == %{
+               "id" => raffle.id,
+               "name" => raffle.name,
+               "draw_date" => DateTime.to_iso8601(raffle.draw_date),
+               "status" => "drawn",
+               "winner" => %{
+                 "id" => user.id,
+                 "name" => user.name,
+                 "email" => user.email
+               }
+             }
     end
   end
 end

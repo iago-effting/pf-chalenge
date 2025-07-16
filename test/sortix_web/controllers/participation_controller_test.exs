@@ -8,12 +8,12 @@ defmodule SortixWeb.ParticipationControllerTest do
     {:ok, raffle: raffle, user: user}
   end
 
-  describe "POST /raffles/:raffle_id/entries" do
+  describe "POST /raffles/:raffle_id/participations" do
     test "creates an entry successfully", %{conn: conn, raffle: raffle, user: user} do
       params = %{"user_id" => user.id}
 
       conn
-      |> post(~p"/api/raffles/#{raffle.id}/entries", params)
+      |> post(~p"/api/raffles/#{raffle.id}/participations", params)
       |> json_response(200)
 
       assert_enqueued(
@@ -23,8 +23,8 @@ defmodule SortixWeb.ParticipationControllerTest do
     end
 
     test "is idempotent on duplicate entry", %{conn: conn, raffle: raffle, user: user} do
-      post(conn, ~p"/api/raffles/#{raffle.id}/entries", %{"user_id" => user.id})
-      conn = post(conn, ~p"/api/raffles/#{raffle.id}/entries", %{"user_id" => user.id})
+      post(conn, ~p"/api/raffles/#{raffle.id}/participations", %{"user_id" => user.id})
+      conn = post(conn, ~p"/api/raffles/#{raffle.id}/participations", %{"user_id" => user.id})
 
       assert response(conn, 200) == "{\"message\":\"Participation successfully\"}"
 

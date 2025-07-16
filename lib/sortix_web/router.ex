@@ -8,9 +8,10 @@ defmodule SortixWeb.Router do
   scope "/api", SortixWeb do
     pipe_through :api
 
-    post "/raffles", RafflesController, :create
     post "/users", UserController, :create
-    post "/raffles/:raffle_id/entries", ParticipationController, :create
+
+    resources "/raffles", RafflesController, only: [:create, :show]
+    post "/raffles/:raffle_id/participations", ParticipationController, :create
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
