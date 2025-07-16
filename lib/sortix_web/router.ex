@@ -10,6 +10,7 @@ defmodule SortixWeb.Router do
 
     post "/raffles", RafflesController, :create
     post "/users", UserController, :create
+    post "/raffles/:raffle_id/entries", ParticipationController, :create
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

@@ -9,7 +9,7 @@ import Config
 
 config :sortix, Oban,
   repo: Sortix.Infrastructure.Repo,
-  queues: [draws: 20]
+  queues: [draws: 20, pariticipations: 20]
 
 config :sortix,
   ecto_repos: [Sortix.Infrastructure.Repo],

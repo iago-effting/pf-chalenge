@@ -1,4 +1,4 @@
-defmodule Sortix.Infrastructure.Jobs.Raffles.DrawRaffleJob do
+defmodule Sortix.Infrastructure.Jobs.RaffleDrawJob do
   use Oban.Worker, queue: :draws
 
   @impl Oban.Worker
