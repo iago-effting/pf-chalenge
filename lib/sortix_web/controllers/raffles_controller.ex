@@ -28,11 +28,13 @@ defmodule SortixWeb.RafflesController do
 
       {:ok, %Raffle{status: :drawn} = raffle} ->
         conn
-        |> put_view(SortixWeb.RaffleJSON)
-        |> render(:raffle, %{raffle: raffle})
+        |> put_view(SortixWeb.WinnerJSON)
+        |> render(:winner, %{winner: raffle.winner_user})
 
-      {:ok, %Raffle{} = raffle} ->
-        send_resp(conn, 409, "Raffle not drawn yet (status: #{raffle.status})")
+      {:ok, %Raffle{} = _raffle} ->
+        conn
+        |> put_status(:conflict)
+        |> json(%{message: "Not drawn yet"})
     end
   end
 

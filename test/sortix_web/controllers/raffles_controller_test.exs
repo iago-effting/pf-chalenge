@@ -48,15 +48,9 @@ defmodule SortixWeb.RafflesControllerTest do
         get(conn, ~p"/api/raffles/#{raffle.id}")
 
       assert json_response(conn, 200) == %{
-               "id" => raffle.id,
-               "name" => raffle.name,
-               "draw_date" => DateTime.to_iso8601(raffle.draw_date),
-               "status" => "drawn",
-               "winner" => %{
-                 "id" => user.id,
-                 "name" => user.name,
-                 "email" => user.email
-               }
+               "id" => user.id,
+               "name" => user.name,
+               "email" => user.email
              }
     end
   end

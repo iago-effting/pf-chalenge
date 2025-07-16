@@ -52,11 +52,8 @@ defmodule Sortix.UseCases.Raffles do
       nil ->
         {:error, :not_found}
 
-      %Raffle{status: :drawn} = raffle ->
+      %Raffle{} = raffle ->
         {:ok, Repo.preload(raffle, :winner_user)}
-
-      %Raffle{status: status} ->
-        {:error, {:raffle_not_drawn, status}}
     end
   end
 
