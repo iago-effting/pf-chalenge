@@ -2,18 +2,16 @@ defmodule Sortix.Test.Fixtures do
   alias Sortix.Domain.Accounts.CreateUser
   alias Sortix.Domain.Service.CreateRaffle
 
-  @user_attrs %{
-    name: "Test User",
-    email: "user_#{System.unique_integer()}@example.com"
-  }
-
   @raffle_attrs %{
     name: "Test Raffle",
     draw_date: ~U[2025-12-31 23:59:59Z]
   }
 
   def user_fixure(attrs \\ %{}) do
-    @user_attrs
+    %{
+      name: "Test User",
+      email: "user_#{System.unique_integer()}@example.com"
+    }
     |> Map.merge(attrs)
     |> CreateUser.call()
   end

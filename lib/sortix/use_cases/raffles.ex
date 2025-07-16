@@ -10,7 +10,7 @@ defmodule Sortix.UseCases.Raffles do
   def create_raffle(attrs) do
     Multi.new()
     |> Multi.run(:raffle, fn _repo, _changes -> CreateRaffle.call(attrs) end)
-    |> Multi.run(:job, &create_raffle_draw_job/2)
+    |> Multi.run(:job, &enqueue_raffle_draw_job/2)
     |> Repo.transaction()
     |> handle_transaction()
   end
@@ -31,10 +31,19 @@ defmodule Sortix.UseCases.Raffles do
     end
   end
 
-  defp create_raffle_draw_job(_repo, %{raffle: raffle}) do
+  defp enqueue_raffle_draw_job(_repo, %{raffle: raffle}) do
     %{raffle_id: raffle.id}
     |> RaffleDrawJob.new(scheduled_at: raffle.draw_date)
     |> Oban.insert()
+  end
+
+  def draw_raffle(raffle_id) do
+    raffle_id
+    |> Sortix.Domain.Raffles.Services.Draw.call()
+    |> case do
+      {:ok, winner_id} -> {:ok, winner_id}
+      {:error, reason} -> {:error, reason}
+    end
   end
 
   defp handle_transaction({:ok, %{raffle: raffle}}), do: {:ok, raffle}

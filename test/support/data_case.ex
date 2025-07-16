@@ -23,6 +23,7 @@ defmodule Sortix.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import Sortix.Test.Fixtures
       import Sortix.DataCase
     end
   end
