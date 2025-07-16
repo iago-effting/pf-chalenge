@@ -7,9 +7,11 @@
 # General application configuration
 import Config
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :sortix, Oban,
   repo: Sortix.Infrastructure.Repo,
-  queues: [draws: 20, pariticipations: 20]
+  queues: [draws: 3, pariticipations: 3]
 
 config :sortix,
   ecto_repos: [Sortix.Infrastructure.Repo],

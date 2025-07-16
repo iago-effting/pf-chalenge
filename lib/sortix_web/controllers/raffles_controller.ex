@@ -5,7 +5,8 @@ defmodule SortixWeb.RafflesController do
   alias Sortix.UseCases.Raffles
 
   def create(conn, %{"name" => name, "draw_date" => draw_date}) do
-    with {:ok, dt, _} <- DateTime.from_iso8601(draw_date),
+    with {:ok, naive} <- NaiveDateTime.from_iso8601(draw_date),
+         {:ok, dt} <- DateTime.from_naive(naive, "America/Sao_Paulo"),
          {:ok, raffle} <- Raffles.create_raffle(%{name: name, draw_date: dt}) do
       json(conn, %{id: raffle.id})
     else

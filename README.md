@@ -6,6 +6,10 @@ It allows to create and participate in raffles.
 The application provides functionalities for `raffle creation`, `participation tracking`, and `result verification`. 
 It also includes background job processing for handling raffle draws and participation subscribe asynchronously.
 
+## Note
+
+The project runs on Brazilian time.
+
 ## Requirements
 
 - Elixir 1.18
@@ -38,7 +42,7 @@ mix deps.get
 | `POST /api/users`                                |  `{"name": "Jane Doe", "email" :"jane@example.com"}`            | Rota de criacao de usuario        |
 | `POST /api/raffles`                              |  `{"name": "Test Raffle", "draw_date": "2025-07-25T12:00:00Z"}` | Rota de criacao de sorteio        |
 | `POST /api/raffles/:raffle_id/participations`    |  `{"user_id": "30b15363-b453-4ceb-a283-617c3192e353"}`          | Rota de participacao de sorteio   |
-| `GET /raffles/:id`                               | id: `6e3b29ff-4c94-4987-941d-f6fbac1d55df`                      | Rota de verificacao de sorteio    |
+| `GET /api/raffles/:id`                               | id: `6e3b29ff-4c94-4987-941d-f6fbac1d55df`                      | Rota de verificacao de sorteio    |
 
 
 ## QA

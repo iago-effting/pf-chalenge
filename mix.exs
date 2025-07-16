@@ -40,6 +40,7 @@ defmodule Sortix.MixProject do
       {:igniter, "~> 0.5", only: [:dev]},
 
       # database
+      {:tzdata, "~> 1.1"},
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
 

@@ -16,7 +16,7 @@ defmodule SortixWeb.RafflesControllerTest do
       assert_enqueued(
         worker: Sortix.Infrastructure.Jobs.RaffleDrawJob,
         args: %{"raffle_id" => id},
-        scheduled_at: ~U[2023-10-01 12:00:00Z]
+        scheduled_at: brazil_naive_to_utc(~N[2023-10-01 12:00:00])
       )
     end
 

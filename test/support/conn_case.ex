@@ -29,6 +29,7 @@ defmodule SortixWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import Sortix.Test.Fixtures
+      import Sortix.TimeHelpers
       import SortixWeb.ConnCase
     end
   end

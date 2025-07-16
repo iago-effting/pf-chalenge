@@ -10,7 +10,7 @@ install:
 	make db
 
 	@echo "\n✅ Project setup completed successfully!"
-	@echo "➡️  To run server execute: make dev"
+	@echo "➡️  To run server execute: make server"
 	
 setup:
 	mix deps.get

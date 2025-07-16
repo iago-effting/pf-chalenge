@@ -23,12 +23,18 @@ defmodule Sortix.UseCases.Raffles do
   end
 
   def enter_raffle(raffle_id, user_id) do
-    %{raffle_id: raffle_id, user_id: user_id}
-    |> Participation.register()
-    |> Repo.insert(on_conflict: :nothing)
-    |> case do
-      {:ok, _} -> :ok
-      {:error, changeset} -> {:error, changeset}
+    case Repo.get(Raffle, raffle_id) do
+      %Raffle{status: :open} ->
+        %{raffle_id: raffle_id, user_id: user_id}
+        |> Participation.register()
+        |> Repo.insert(on_conflict: :nothing)
+        |> case do
+          {:ok, _} -> :ok
+          {:error, changeset} -> {:error, changeset}
+        end
+
+      %Raffle{} ->
+        {:error, :raffle_closed}
     end
   end
 
